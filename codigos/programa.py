@@ -2,11 +2,13 @@ from .codificadores.cod_tapcode import *
 from .codificadores.cod_morse import *
 from .codificadores.cod_cesar import *
 from .codificadores.cod_vigenere import *
+from .codificadores.cod_onetimepad import *
 
 from .decodificadores.decod_tapcode import *
 from .decodificadores.decod_morse import *
 from .decodificadores.decod_cesar import *
 from .decodificadores.decod_vigenere import *
+from .decodificadores.decod_onetimepad import *
 
 
 def codificar_ou_decodificar() -> str:
@@ -24,7 +26,8 @@ def programa() -> None:
         print('2 - Código morse')
         print('3 - Cifra de César')
         print('4 - Cifra de Vigenère')
-        print('5 - Sair do programa')
+        print('5 - One-time pad (Cifra de uso único)')
+        print('6 - Sair do programa')
         escolha1: str = input('Digite umas da opções: ')
         print('\n' * 15)
 
@@ -57,6 +60,13 @@ def programa() -> None:
                 print(decodificar_vigenere())
 
         elif escolha1 == '5':
+            escolha2 = codificar_ou_decodificar()
+            if escolha2 == '1':
+                print(codificar_onetimepad())
+            elif escolha2 == '2':
+                print(decodificar_onetimepad())
+
+        elif escolha1 == '6':
             print('Programa finalizado.')
             break
 
