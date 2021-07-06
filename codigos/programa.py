@@ -1,3 +1,5 @@
+from time import sleep
+
 from .codificadores.cod_tapcode import *
 from .codificadores.cod_morse import *
 from .codificadores.cod_cesar import *
@@ -28,6 +30,7 @@ def programa() -> None:
         print('4 - Cifra de Vigenère')
         print('5 - One-time pad (Cifra de uso único)')
         print('6 - Sair do programa')
+        print()
         escolha1: str = input('Digite umas da opções: ')
         print('\n' * 15)
 
@@ -72,5 +75,5 @@ def programa() -> None:
 
         else:
             print('Opção inválida.')
-        input('Aperte enter para voltar ao menu ')
+        sleep(3)
         print('\n' * 15)
