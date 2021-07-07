@@ -14,7 +14,7 @@ def codificar_vigenere() -> str:
                 chave.append(letra)
             else:
                 break
-        carac_esp = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
+        carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
         mensagem: list = [x for x in mensagem if x in alfabeto]
         for indice, letra in enumerate(mensagem):
             novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]

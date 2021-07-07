@@ -27,8 +27,8 @@ def decodificar_tapcode() -> str:
     elif tipo_entrada == '2':
         print('Escreva o código com vírgula entre os números e espaço entre cada série')
         print('Exemplo: 1,3 2,1 4,5\n')
+        codigo: list = input('Digite o código: ').split()
         try:
-            codigo: list = input('Digite o código: ').split()
             codigo = [tabela[int(x) - 1][int(y) - 1] for x, y in [z.split(',') for z in codigo]]
             return f"Resultado: {''.join(codigo)}"
         except ValueError:
