@@ -1,4 +1,4 @@
-from codigos.programa import programa
+from lib.programa import programa
 
 if __name__ == '__main__':
     programa()

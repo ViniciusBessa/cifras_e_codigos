@@ -1,16 +1,7 @@
 from time import sleep
 
-from .codificadores.cod_tapcode import *
-from .codificadores.cod_morse import *
-from .codificadores.cod_cesar import *
-from .codificadores.cod_vigenere import *
-from .codificadores.cod_onetimepad import *
-
-from .decodificadores.decod_tapcode import *
-from .decodificadores.decod_morse import *
-from .decodificadores.decod_cesar import *
-from .decodificadores.decod_vigenere import *
-from .decodificadores.decod_onetimepad import *
+from .codificadores import *
+from .decodificadores import *
 
 
 def codificar_ou_decodificar() -> str:
