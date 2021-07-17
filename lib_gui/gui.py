@@ -5,13 +5,13 @@ from .codificadores import *
 from .decodificadores import *
 
 
-def gui():
+def gui() -> None:
     """Função principal da interface gráfica"""
 
-    def iniciar(_):
+    def iniciar(_) -> None:
         """Função para iniciar o segundo frame"""
 
-        def voltar():
+        def voltar() -> None:
             """Função para voltar ao menu principal"""
             cbx1.set('')
             cbx2.set('')
@@ -21,7 +21,7 @@ def gui():
             frame2.destroy()
             frame1.pack(expand=True, fill=BOTH)
 
-        def gerar_resultado():
+        def gerar_resultado() -> None:
             """Função para gerar o resultado"""
 
             try:
