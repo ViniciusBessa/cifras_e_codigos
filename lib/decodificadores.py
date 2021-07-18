@@ -1,7 +1,7 @@
 from string import ascii_uppercase
 
 
-def decodificar_cesar() -> str:
+def decod_cesar() -> str:
     """Função para decodificar de cifra de César"""
     alfabeto: list = [letra for letra in ascii_uppercase]
 
@@ -21,7 +21,7 @@ def decodificar_cesar() -> str:
         print('Chave inserida é inválida.')
 
 
-def decodificar_morse() -> str:
+def decod_morse() -> str:
     """Função para decodificar de código morse"""
     alfabeto: list = [x for x in ascii_uppercase]
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -42,7 +42,7 @@ def decodificar_morse() -> str:
     return f"Resultado: {''.join(codigo)}"
 
 
-def decodificar_onetimepad() -> str:
+def decod_onetimepad() -> str:
     """Função para decodificar de one-time pad"""
     alfabeto: list = [x for x in ascii_uppercase]
 
@@ -57,7 +57,7 @@ def decodificar_onetimepad() -> str:
     return f"Resultado: {''.join(mensagem)}"
 
 
-def decodificar_tapcode() -> str:
+def decod_tapcode() -> str:
     """Função para decodificar de tap code"""
     # Tabela do tap code
     tabela: list = [['A', 'B', 'C', 'D', 'E'],
@@ -94,15 +94,15 @@ def decodificar_tapcode() -> str:
     return 'Opção inválida.'
 
 
-def decodificar_vigenere() -> str:
+def decod_vigenere() -> str:
     """Função para decodificar de cifra de Vigenère"""
     alfabeto: list = [letra for letra in ascii_uppercase]
 
     print('Decodificador de cifra de Vigenère\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ')]
+    chave: list = [x.upper() for x in input('Digite a chave: ')]
 
     try:
-        chave: list = [x.upper() for x in input('Digite a chave: ')]
         for letra in chave:
             if len(chave) < len([x for x in mensagem if x in alfabeto]):
                 chave.append(letra)
@@ -114,6 +114,29 @@ def decodificar_vigenere() -> str:
             novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
             novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
             mensagem[indice] = alfabeto[novo_alfabeto.index(letra)]
+        for carac in carac_esp:
+            mensagem.insert(carac[0], carac[1])
+        return f"Resultado: {''.join(mensagem)}"
+    except ValueError:
+        print('Chave inserida é inválida.')
+
+
+def decod_autokey():
+    """Função para decodificar de cifra de autochave"""
+    alfabeto: list = [letra for letra in ascii_uppercase]
+
+    print('Decodificador de cifra de autochave\n')
+    mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ')]
+    chave: list = [x.upper() for x in input('Digite a chave: ')]
+
+    try:
+        carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
+        mensagem: list = [x for x in mensagem if x in alfabeto]
+        for indice, letra in enumerate(mensagem):
+            novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
+            novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
+            mensagem[indice] = alfabeto[novo_alfabeto.index(letra)]
+            chave.append(mensagem[indice])
         for carac in carac_esp:
             mensagem.insert(carac[0], carac[1])
         return f"Resultado: {''.join(mensagem)}"

@@ -4,6 +4,7 @@ from string import ascii_uppercase
 def cod_cesar(mensagem: str, chave: int) -> str:
     """Função para codificar em cifra de César"""
     alfabeto: list = [letra for letra in ascii_uppercase]
+
     mensagem: list = [x.upper() for x in mensagem]
 
     novo_alfabeto: list = alfabeto[int(chave)::]
@@ -12,12 +13,13 @@ def cod_cesar(mensagem: str, chave: int) -> str:
     mensagem: list = [novo_alfabeto[alfabeto.index(x)] for x in mensagem if x in alfabeto]
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
 
 
 def cod_morse(mensagem: str) -> str:
     """Função para codificar em código morse"""
     alfabeto: list = [letra for letra in ascii_uppercase]
+
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
                          '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
@@ -29,12 +31,13 @@ def cod_morse(mensagem: str) -> str:
             mensagem[indice] = tabela_alfa[alfabeto.index(carac)]
         elif carac in numeros:
             mensagem[indice] = tabela_num[numeros.index(carac)]
-    return f"{' '.join(mensagem)}"
+    return ' '.join(mensagem)
 
 
 def cod_onetimepad(mensagem: str, chave: str) -> str:
     """Função para codificar em one-time pad"""
     alfabeto: list = [letra for letra in ascii_uppercase]
+
     mensagem: list = [x.upper() for x in mensagem if x.upper() in alfabeto]
     chave: list = [x.upper() for x in chave if x.upper() in alfabeto]
 
@@ -42,7 +45,7 @@ def cod_onetimepad(mensagem: str, chave: str) -> str:
         return 'A chave precisa ter, no mínimo, o tamanho da mensagem.'
     for indice, letra in enumerate(mensagem):
         mensagem[indice] = alfabeto[(alfabeto.index(letra) + alfabeto.index(chave[indice])) % 26]
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
 
 
 def cod_tapcode(mensagem: str, tipo_saida: int) -> str:
@@ -64,7 +67,7 @@ def cod_tapcode(mensagem: str, tipo_saida: int) -> str:
             for indice, conjunto in enumerate(mensagem):
                 lista = conjunto.split(',')
                 mensagem[indice] = ' '.join(['.' * int(x) for x in lista])
-        return f"{'  '.join(mensagem)}"
+        return '  '.join(mensagem)
     return 'Selecione uma das opções de codificação.'
 
 
@@ -87,4 +90,27 @@ def cod_vigenere(mensagem: str, chave: str) -> str:
         mensagem[indice] = novo_alfabeto[alfabeto.index(letra)]
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
+
+
+def cod_autokey(mensagem: str, chave: str):
+    """Função para codificar em autokey cipher"""
+    alfabeto: list = [letra for letra in ascii_uppercase]
+
+    mensagem: list = [x.upper() for x in mensagem]
+    chave: list = [x.upper() for x in chave]
+
+    for letra in [x for x in mensagem if x in alfabeto]:
+        if len(chave) < len([x for x in mensagem if x in alfabeto]):
+            chave.append(letra)
+        else:
+            break
+    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
+    mensagem: list = [x for x in mensagem if x in alfabeto]
+    for indice, letra in enumerate(mensagem):
+        novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
+        novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
+        mensagem[indice] = novo_alfabeto[alfabeto.index(letra)]
+    for carac in carac_esp:
+        mensagem.insert(carac[0], carac[1])
+    return ''.join(mensagem)

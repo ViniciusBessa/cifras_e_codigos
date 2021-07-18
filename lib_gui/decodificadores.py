@@ -12,7 +12,7 @@ def decod_cesar(mensagem: str, chave: int) -> str:
     mensagem: list = [alfabeto[novo_alfabeto.index(x)] for x in mensagem if x in alfabeto]
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
 
 
 def decod_morse(codigo: str) -> str:
@@ -31,7 +31,7 @@ def decod_morse(codigo: str) -> str:
             codigo[indice] = alfabeto[tabela_alfa.index(seq)]
         elif seq in tabela_num:
             codigo[indice] = numeros[tabela_num.index(seq)]
-    return f"{''.join(codigo)}"
+    return ''.join(codigo)
 
 
 def decod_onetimepad(mensagem: str, chave: str) -> str:
@@ -44,7 +44,7 @@ def decod_onetimepad(mensagem: str, chave: str) -> str:
         return 'A chave precisa ter no mínimo o mesmo número de letras que a mensagem.'
     for indice, letra in enumerate(mensagem):
         mensagem[indice] = alfabeto[(alfabeto.index(letra) - alfabeto.index(chave[indice])) % 26]
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
 
 
 def decod_tapcode(codigo: str, tipo_entrada: int) -> str:
@@ -58,12 +58,12 @@ def decod_tapcode(codigo: str, tipo_entrada: int) -> str:
     if tipo_entrada == 0:
         codigo: list = codigo.split()
         codigo = [tabela[int(x) - 1][int(y) - 1] for x, y in [z.split(',') for z in codigo]]
-        return f"{''.join(codigo)}"
+        return ''.join(codigo)
 
     elif tipo_entrada == 1:
         codigo: list = codigo.split("  ")
         codigo = [tabela[len(x) - 1][len(y) - 1] for x, y in [z.split(" ") for z in codigo]]
-        return f"{''.join(codigo)}"
+        return ''.join(codigo)
 
 
 def decod_vigenere(mensagem: str, chave: str) -> str:
@@ -85,4 +85,23 @@ def decod_vigenere(mensagem: str, chave: str) -> str:
         mensagem[indice] = alfabeto[novo_alfabeto.index(letra)]
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
-    return f"{''.join(mensagem)}"
+    return ''.join(mensagem)
+
+
+def decod_autokey(mensagem: str, chave: str):
+    """Função para decodificar de autokey cipher"""
+    alfabeto: list = [letra for letra in ascii_uppercase]
+
+    mensagem: list = [x.upper() for x in mensagem]
+    chave: list = [x.upper() for x in chave]
+
+    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
+    mensagem: list = [x for x in mensagem if x in alfabeto]
+    for indice, letra in enumerate(mensagem):
+        novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
+        novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
+        mensagem[indice] = alfabeto[novo_alfabeto.index(letra)]
+        chave.append(mensagem[indice])
+    for carac in carac_esp:
+        mensagem.insert(carac[0], carac[1])
+    return ''.join(mensagem)

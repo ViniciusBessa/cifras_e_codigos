@@ -25,7 +25,7 @@ def gui() -> None:
             """Função para gerar o resultado"""
 
             try:
-                if cbx2.current() in (0, 2, 4):
+                if cbx2.current() in (0, 2, 4, 5):
                     res.set(cifra(ent_msg.get(), ent_cha.get()))
                 elif cbx2.current() == 1:
                     res.set(cifra(ent_msg.get()))
@@ -38,9 +38,11 @@ def gui() -> None:
         if cbx1.get():
             # Colocando na variável cifra uma função de acordo com as escolhas do usuário
             if cbx1.get() == 'Codificar':
-                cifra = [cod_cesar, cod_morse, cod_onetimepad, cod_tapcode, cod_vigenere][cbx2.current()]
+                cifra = [cod_cesar, cod_morse, cod_onetimepad, cod_tapcode,
+                         cod_vigenere, cod_autokey][cbx2.current()]
             elif cbx1.get() == 'Decodificar':
-                cifra = [decod_cesar, decod_morse, decod_onetimepad, decod_tapcode, decod_vigenere][cbx2.current()]
+                cifra = [decod_cesar, decod_morse, decod_onetimepad, decod_tapcode,
+                         decod_vigenere, decod_autokey][cbx2.current()]
 
             # Escondendo o menu principal e mostrando a opção do usuário
             root.geometry('350x200')
@@ -75,7 +77,7 @@ def gui() -> None:
             bnt_res['command'] = gerar_resultado
             bnt_res.grid(column=0, row=6, padx=10)
 
-            if cbx2.current() in (0, 2, 4):
+            if cbx2.current() in (0, 2, 4, 5):
                 # Colocando os widgets de chave
                 root.geometry('350x270')
                 lbl_cha = Label(frame2, text='Chave', bg='#fffcf2')
@@ -107,7 +109,8 @@ def gui() -> None:
     cbx1.grid(column=0, row=1, padx=10, pady=8)
 
     cbx2 = Combobox(frame1, state='readonly')
-    cbx2.config(values=('Cifra de César', 'Código morse', 'One-time pad', 'Tap code', 'Cifra de Vigenère'))
+    cbx2.config(values=('Cifra de César', 'Código morse', 'One-time pad',
+                        'Tap code', 'Cifra de Vigenère', 'Autokey cipher'))
     cbx2.grid(column=0, row=3, padx=10)
     cbx2.bind("<<ComboboxSelected>>", iniciar)
 

@@ -1,7 +1,7 @@
 from string import ascii_uppercase
 
 
-def codificar_cesar() -> str:
+def cod_cesar() -> str:
     """Função para codificar em cifra de César"""
     alfabeto: list = [letra for letra in ascii_uppercase]
 
@@ -21,7 +21,7 @@ def codificar_cesar() -> str:
         print('Chave inserida é inválida.')
 
 
-def codificar_morse() -> str:
+def cod_morse() -> str:
     """Função para codificar em código morse"""
     alfabeto: list = [x for x in ascii_uppercase]
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -40,7 +40,7 @@ def codificar_morse() -> str:
     return f"Resultado: {' '.join(mensagem)}"
 
 
-def codificar_onetimepad() -> str:
+def cod_onetimepad() -> str:
     """Função para codificar em one-time pad"""
     alfabeto: list = [x for x in ascii_uppercase]
 
@@ -55,7 +55,7 @@ def codificar_onetimepad() -> str:
     return f"Resultado: {''.join(mensagem)}"
 
 
-def codificar_tapcode() -> str:
+def cod_tapcode() -> str:
     """Função para codificar em tap code"""
     # Tabela do tap code
     tabela: list = [['A', 'B', 'C', 'D', 'E'],
@@ -84,7 +84,7 @@ def codificar_tapcode() -> str:
     return 'Opção inválida.'
 
 
-def codificar_vigenere() -> str:
+def cod_vigenere() -> str:
     """Função para codificar em cifra de Vigenère"""
     alfabeto: list = [letra for letra in ascii_uppercase]
 
@@ -94,6 +94,33 @@ def codificar_vigenere() -> str:
     try:
         chave: list = [x.upper() for x in input('Digite a chave que será utilizada na codificação: ')]
         for letra in chave:
+            if len(chave) < len([x for x in mensagem if x in alfabeto]):
+                chave.append(letra)
+            else:
+                break
+        carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
+        mensagem: list = [x for x in mensagem if x in alfabeto]
+        for indice, letra in enumerate(mensagem):
+            novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
+            novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
+            mensagem[indice] = novo_alfabeto[alfabeto.index(letra)]
+        for carac in carac_esp:
+            mensagem.insert(carac[0], carac[1])
+        return f"Resultado: {''.join(mensagem)}"
+    except ValueError:
+        print('Chave inserida é inválida.')
+
+
+def cod_autokey():
+    """Função para codificar em autokey cipher"""
+    alfabeto: list = [letra for letra in ascii_uppercase]
+
+    print('Codificador de cifra de autochave\n')
+    mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ')]
+    
+    try:
+        chave: list = [x.upper() for x in input('Digite a chave que será utilizada na codificação: ')]
+        for letra in [x for x in mensagem if x in alfabeto]:
             if len(chave) < len([x for x in mensagem if x in alfabeto]):
                 chave.append(letra)
             else:

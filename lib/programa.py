@@ -20,7 +20,8 @@ def programa() -> None:
         print('3 - Cifra de César')
         print('4 - Cifra de Vigenère')
         print('5 - One-time pad (Cifra de uso único)')
-        print('6 - Sair do programa')
+        print('6 - Autokey cipher (Cifra de autochave)')
+        print('7 - Sair do programa')
         print()
         escolha1: str = input('Digite umas da opções: ')
         print('\n' * 15)
@@ -28,39 +29,46 @@ def programa() -> None:
         if escolha1 == '1':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(codificar_tapcode())
+                print(cod_tapcode())
             elif escolha2 == '2':
-                print(decodificar_tapcode())
+                print(decod_tapcode())
 
         elif escolha1 == '2':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(codificar_morse())
+                print(cod_morse())
             elif escolha2 == '2':
-                print(decodificar_morse())
+                print(decod_morse())
 
         elif escolha1 == '3':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(codificar_cesar())
+                print(cod_cesar())
             elif escolha2 == '2':
-                print(decodificar_cesar())
+                print(decod_cesar())
 
         elif escolha1 == '4':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(codificar_vigenere())
+                print(cod_vigenere())
             elif escolha2 == '2':
-                print(decodificar_vigenere())
+                print(decod_vigenere())
 
         elif escolha1 == '5':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(codificar_onetimepad())
+                print(cod_onetimepad())
             elif escolha2 == '2':
-                print(decodificar_onetimepad())
+                print(decod_onetimepad())
 
         elif escolha1 == '6':
+            escolha2 = codificar_ou_decodificar()
+            if escolha2 == '1':
+                print(cod_autokey())
+            elif escolha2 == '2':
+                print(decod_autokey())
+
+        elif escolha1 == '7':
             print('Programa finalizado.')
             break
 
