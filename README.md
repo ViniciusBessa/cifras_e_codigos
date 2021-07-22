@@ -1,6 +1,6 @@
 # Codificador/Decodificador
 
-Um programa para codificar e decodificar algumas cifras e códigos.
+Um programa para codificar e decodificar algumas criptografias.
 
 
 ## Cifras e códigos
