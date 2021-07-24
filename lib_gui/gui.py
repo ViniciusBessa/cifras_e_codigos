@@ -117,7 +117,7 @@ def gui() -> None:
     lbl1 = Label(frame1, text='Operação', bg='#fffcf2')
     lbl1.grid(column=0, row=0, sticky='W', padx=10, pady=8)
 
-    lbl2 = Label(frame1, text='Codificação', bg='#fffcf2')
+    lbl2 = Label(frame1, text='Criptografia', bg='#fffcf2')
     lbl2.grid(column=0, row=2, sticky='W', padx=10, pady=16)
 
     root.mainloop()
