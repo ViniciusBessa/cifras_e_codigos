@@ -14,12 +14,12 @@ def codificar_ou_decodificar() -> str:
 
 def programa() -> None:
     while True:
-        print('Menu inicial\n')
-        print('1 - Tap code (Código da batida)')
-        print('2 - Código morse')
-        print('3 - Cifra de César')
-        print('4 - Cifra de Vigenère')
-        print('5 - One-time pad (Cifra de uso único)')
+        print('Menu principal\n')
+        print('1 - Cifra de César')
+        print('2 - Cifra de Vigenère')
+        print('3 - One-time pad (Cifra de uso único)')
+        print('4 - Código morse')
+        print('5 - Tap code (Código da batida)')   
         print('6 - Autokey cipher (Cifra de autochave)')
         print('7 - Sair do programa')
         print()
@@ -29,37 +29,37 @@ def programa() -> None:
         if escolha1 == '1':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(cod_tapcode())
+                print(cod_cesar())
             elif escolha2 == '2':
-                print(decod_tapcode())
+                print(decod_cesar())
 
         elif escolha1 == '2':
+            escolha2 = codificar_ou_decodificar()
+            if escolha2 == '1':
+                print(cod_vigenere())
+            elif escolha2 == '2':
+                print(decod_vigenere())
+        
+        elif escolha1 == '3':
+            escolha2 = codificar_ou_decodificar()
+            if escolha2 == '1':
+                print(cod_onetimepad())
+            elif escolha2 == '2':
+                print(decod_onetimepad())
+        
+        elif escolha1 == '4':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
                 print(cod_morse())
             elif escolha2 == '2':
                 print(decod_morse())
 
-        elif escolha1 == '3':
-            escolha2 = codificar_ou_decodificar()
-            if escolha2 == '1':
-                print(cod_cesar())
-            elif escolha2 == '2':
-                print(decod_cesar())
-
-        elif escolha1 == '4':
-            escolha2 = codificar_ou_decodificar()
-            if escolha2 == '1':
-                print(cod_vigenere())
-            elif escolha2 == '2':
-                print(decod_vigenere())
-
         elif escolha1 == '5':
             escolha2 = codificar_ou_decodificar()
             if escolha2 == '1':
-                print(cod_onetimepad())
+                print(cod_tapcode())
             elif escolha2 == '2':
-                print(decod_onetimepad())
+                print(decod_tapcode())
 
         elif escolha1 == '6':
             escolha2 = codificar_ou_decodificar()
