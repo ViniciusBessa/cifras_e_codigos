@@ -1,9 +1,10 @@
 from string import ascii_uppercase
+from textwrap import wrap
 
 
 def cod_cesar(mensagem: str, chave: int) -> str:
     """Função para codificar em cifra de César"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     mensagem: list = [x.upper() for x in mensagem]
 
@@ -18,7 +19,7 @@ def cod_cesar(mensagem: str, chave: int) -> str:
 
 def cod_morse(mensagem: str) -> str:
     """Função para codificar em código morse"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
@@ -36,7 +37,7 @@ def cod_morse(mensagem: str) -> str:
 
 def cod_onetimepad(mensagem: str, chave: str) -> str:
     """Função para codificar em one-time pad"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     mensagem: list = [x.upper() for x in mensagem if x.upper() in alfabeto]
     chave: list = [x.upper() for x in chave if x.upper() in alfabeto]
@@ -73,7 +74,8 @@ def cod_tapcode(mensagem: str, tipo_saida: int) -> str:
 
 def cod_vigenere(mensagem: str, chave: str) -> str:
     """Função para codificar em cifra de Vigenère"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
+
     mensagem: list = [x.upper() for x in mensagem]
     chave: list = [x.upper() for x in chave]
 
@@ -95,7 +97,7 @@ def cod_vigenere(mensagem: str, chave: str) -> str:
 
 def cod_autokey(mensagem: str, chave: str):
     """Função para codificar em autokey cipher"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     mensagem: list = [x.upper() for x in mensagem]
     chave: list = [x.upper() for x in chave]
@@ -114,3 +116,34 @@ def cod_autokey(mensagem: str, chave: str):
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
     return ''.join(mensagem)
+
+
+def cod_niilista(mensagem: str, palavra: str, chave: str):
+    """Função para codificar em cifra niilista"""
+    alfabeto = [letra for letra in ascii_uppercase if letra != 'J']
+
+    mensagem: list = [x.upper() for x in mensagem if x.upper() in alfabeto]
+    tabela: list = []
+
+    palavra: list = [x.upper() for x in palavra if x.upper() in alfabeto and x.upper() != 'J']
+    for letra in ''.join(palavra) + ''.join(alfabeto):
+        if letra not in tabela:
+            tabela.append(letra)
+    chave: list = [x.upper() for x in chave if x.upper() in alfabeto]
+    for letra in chave:
+        if len(chave) < len(mensagem):
+            chave.append(letra)
+        else:
+            break
+    tabela = wrap(''.join(tabela), 5)
+    for indice_letra, letra in enumerate(mensagem):
+        for indice_linha, linha in enumerate(tabela):
+            if letra in linha:
+                mensagem[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+    for indice_letra, letra in enumerate(chave):
+        for indice_linha, linha in enumerate(tabela):
+            if letra in linha:
+                chave[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+    for n in range(len(mensagem)):
+        mensagem[n] = str(int(mensagem[n]) + int(chave[n]))
+    return ' '.join(mensagem)    

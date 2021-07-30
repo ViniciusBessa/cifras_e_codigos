@@ -21,7 +21,8 @@ def programa() -> None:
         print('4 - Código morse')
         print('5 - Tap code (Código da batida)')   
         print('6 - Autokey cipher (Cifra de autochave)')
-        print('7 - Sair do programa')
+        print('7 - Cifra niilista')
+        print('8 - Sair do programa')
         print()
         escolha1: str = input('Digite umas da opções: ')
         print('\n' * 15)
@@ -69,6 +70,12 @@ def programa() -> None:
                 print(decod_autokey())
 
         elif escolha1 == '7':
+            escolha2 = codificar_ou_decodificar()
+            if escolha2 == '1':
+                print(cod_niilista())
+            elif escolha2 == '2':
+                print(decod_niilista())
+        elif escolha1 == '8':
             print('Programa finalizado.')
             break
 

@@ -26,3 +26,4 @@ Atualmente, o programa trabalha com as seguintes criptografias:
 - Código morse
 - Código da batida (Tap code)
 - Cifra de autochave (Autokey cipher)
+- Cifra niilista

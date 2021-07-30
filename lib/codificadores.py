@@ -1,9 +1,10 @@
 from string import ascii_uppercase
+from textwrap import wrap
 
 
 def cod_cesar() -> str:
     """Função para codificar em cifra de César"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Codificador de cifra de César\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ')]
@@ -18,12 +19,13 @@ def cod_cesar() -> str:
             mensagem.insert(carac[0], carac[1])
         return f"Resultado: {''.join(mensagem)}"
     except ValueError:
-        print('Chave inserida é inválida.')
+        return 'Chave inserida é inválida.'
 
 
 def cod_morse() -> str:
     """Função para codificar em código morse"""
-    alfabeto: list = [x for x in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
+
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
                          '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
@@ -42,7 +44,7 @@ def cod_morse() -> str:
 
 def cod_onetimepad() -> str:
     """Função para codificar em one-time pad"""
-    alfabeto: list = [x for x in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Codificador de one-time pad\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ') if x.upper() in alfabeto]
@@ -86,7 +88,7 @@ def cod_tapcode() -> str:
 
 def cod_vigenere() -> str:
     """Função para codificar em cifra de Vigenère"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Codificador de cifra de Vigenère\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ')]
@@ -108,12 +110,12 @@ def cod_vigenere() -> str:
             mensagem.insert(carac[0], carac[1])
         return f"Resultado: {''.join(mensagem)}"
     except ValueError:
-        print('Chave inserida é inválida.')
+        return 'Chave inserida é inválida.'
 
 
 def cod_autokey():
     """Função para codificar em autokey cipher"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Codificador de cifra de autochave\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ')]
@@ -135,4 +137,40 @@ def cod_autokey():
             mensagem.insert(carac[0], carac[1])
         return f"Resultado: {''.join(mensagem)}"
     except ValueError:
-        print('Chave inserida é inválida.')
+        return 'Chave inserida é inválida.'
+
+
+def cod_niilista():
+    """Função para codificar em cifra niilista"""
+    alfabeto: list = [letra for letra in ascii_uppercase if letra != 'J']
+
+    print('Codificador de cifra niilista\n')
+    mensagem: list = [x.upper() for x in input('Digite a mensagem que será codificada: ') if x.upper() in alfabeto]
+    tabela: list = []
+
+    try:
+        palavra: str = input('Digite a palavra-chave que será usada no quadrado de Políbio: ')
+        palavra: list = [x.upper() for x in palavra if x.upper() in alfabeto and x.upper() != 'J']
+        for letra in ''.join(palavra) + ''.join(alfabeto):
+            if letra not in tabela:
+                tabela.append(letra)
+        chave: list = [x.upper() for x in input('Digite a chave que será utilizada na codificação: ') if x.upper() in alfabeto]
+        for letra in chave:
+            if len(chave) < len(mensagem):
+                chave.append(letra)
+            else:
+                break
+        tabela = wrap(''.join(tabela), 5)
+        for indice_letra, letra in enumerate(mensagem):
+            for indice_linha, linha in enumerate(tabela):
+                if letra in linha:
+                    mensagem[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+        for indice_letra, letra in enumerate(chave):
+            for indice_linha, linha in enumerate(tabela):
+                if letra in linha:
+                    chave[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+        for n in range(len(mensagem)):
+            mensagem[n] = str(int(mensagem[n]) + int(chave[n]))
+        return ' '.join(mensagem)
+    except ValueError:
+        return 'Chave inserida é inválida.'

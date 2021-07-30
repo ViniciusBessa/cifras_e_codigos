@@ -31,6 +31,8 @@ def gui() -> None:
                     res.set(cifra(ent_msg.get()))
                 elif cbx2.current() == 3:
                     res.set(cifra(ent_msg.get(), cbx_esc.current()))
+                elif cbx2.current() == 6:
+                    res.set(cifra(ent_msg.get(), ent_pala.get(), ent_cha.get()))
 
             except ValueError:
                 messagebox.showerror('ValueError', 'Chave passada é inválida.')
@@ -39,10 +41,10 @@ def gui() -> None:
             # Colocando na variável cifra uma função de acordo com as escolhas do usuário
             if cbx1.get() == 'Codificar':
                 cifra = [cod_cesar, cod_morse, cod_onetimepad, cod_tapcode,
-                         cod_vigenere, cod_autokey][cbx2.current()]
+                         cod_vigenere, cod_autokey, cod_niilista][cbx2.current()]
             elif cbx1.get() == 'Decodificar':
                 cifra = [decod_cesar, decod_morse, decod_onetimepad, decod_tapcode,
-                         decod_vigenere, decod_autokey][cbx2.current()]
+                         decod_vigenere, decod_autokey, decod_niilista][cbx2.current()]
 
             # Escondendo o menu principal e mostrando a opção do usuário
             root.geometry('350x200')
@@ -63,19 +65,19 @@ def gui() -> None:
             ent_msg.grid(column=0, row=1, sticky='W', padx=10, pady=8)
 
             lbl_res = Label(frame2, text='Resultado', bg='#fffcf2')
-            lbl_res.grid(column=0, row=4, sticky='W', padx=10, pady=16)
+            lbl_res.grid(column=0, row=6, sticky='W', padx=10, pady=16)
 
             res = StringVar()
             ent_res = Entry(frame2, width=55, state='readonly', textvariable=res)
-            ent_res.grid(column=0, row=5, sticky='W', padx=10, pady=0)
+            ent_res.grid(column=0, row=7, sticky='W', padx=10, pady=0)
 
             bnt_voltar = Button(frame2, text='Voltar', bg='#eb5e28')
             bnt_voltar['command'] = voltar
-            bnt_voltar.grid(column=0, row=6, sticky='W', padx=10, pady=16)
+            bnt_voltar.grid(column=0, row=8, sticky='W', padx=10, pady=16)
 
             bnt_res = Button(frame2, text='Gerar resultado', bg='#ccc5b9', activebackground='#ccc5b9')
             bnt_res['command'] = gerar_resultado
-            bnt_res.grid(column=0, row=6, padx=10)
+            bnt_res.grid(column=0, row=8, padx=10)
 
             if cbx2.current() in (0, 2, 4, 5):
                 # Colocando os widgets de chave
@@ -95,6 +97,20 @@ def gui() -> None:
                 cbx_esc = Combobox(frame2, state='readonly')
                 cbx_esc.config(values=('Por pares de números', 'Por pontos'))
                 cbx_esc.grid(column=0, row=3, sticky='W', padx=10, pady=0)
+            
+            elif cbx2.current() == 6:
+                # Colocando os widgets de chave
+                root.geometry('350x340')
+                lbl_pala = Label(frame2, text='Palavra-chave', bg='#fffcf2')
+                lbl_pala.grid(column=0, row=2, sticky='W', padx=10, pady=16)
+                ent_pala = Entry(frame2, width=55)
+                ent_pala.grid(column=0, row=3, sticky='W', padx=10, pady=0)
+
+                lbl_cha = Label(frame2, text='Chave', bg='#fffcf2')
+                lbl_cha.grid(column=0, row=4, sticky='W', padx=10, pady=16)
+
+                ent_cha = Entry(frame2, width=55)
+                ent_cha.grid(column=0, row=5, sticky='W', padx=10, pady=0)
 
     root = Tk()
     root.title('Menu principal')
@@ -110,7 +126,8 @@ def gui() -> None:
 
     cbx2 = Combobox(frame1, state='readonly')
     cbx2.config(values=('Cifra de César', 'Código morse', 'One-time pad',
-                        'Tap code', 'Cifra de Vigenère', 'Autokey cipher'))
+                        'Tap code', 'Cifra de Vigenère', 'Autokey cipher',
+                         'Cifra niilista'))
     cbx2.grid(column=0, row=3, padx=10)
     cbx2.bind("<<ComboboxSelected>>", iniciar)
 

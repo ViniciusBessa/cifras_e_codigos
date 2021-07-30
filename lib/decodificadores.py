@@ -1,9 +1,10 @@
 from string import ascii_uppercase
+from textwrap import wrap
 
 
 def decod_cesar() -> str:
     """Função para decodificar de cifra de César"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Decodificador de cifra de César\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ')]
@@ -23,7 +24,8 @@ def decod_cesar() -> str:
 
 def decod_morse() -> str:
     """Função para decodificar de código morse"""
-    alfabeto: list = [x for x in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
+
     numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
                          '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
@@ -44,7 +46,7 @@ def decod_morse() -> str:
 
 def decod_onetimepad() -> str:
     """Função para decodificar de one-time pad"""
-    alfabeto: list = [x for x in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Decodificador de one-time pad\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ') if x.upper() in alfabeto]
@@ -96,7 +98,7 @@ def decod_tapcode() -> str:
 
 def decod_vigenere() -> str:
     """Função para decodificar de cifra de Vigenère"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Decodificador de cifra de Vigenère\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ')]
@@ -123,7 +125,7 @@ def decod_vigenere() -> str:
 
 def decod_autokey():
     """Função para decodificar de cifra de autochave"""
-    alfabeto: list = [letra for letra in ascii_uppercase]
+    alfabeto: list = list(ascii_uppercase)
 
     print('Decodificador de cifra de autochave\n')
     mensagem: list = [x.upper() for x in input('Digite a mensagem que será decodificada: ')]
@@ -142,3 +144,37 @@ def decod_autokey():
         return f"Resultado: {''.join(mensagem)}"
     except ValueError:
         print('Chave inserida é inválida.')
+
+
+def decod_niilista():
+    """Função para decodificar de cifra niilista"""
+    alfabeto: list = [letra for letra in ascii_uppercase if letra != 'J']
+
+    print('Decodificador de cifra niilista\n')
+    mensagem: list = input('Digite a mensagem que será decodificada: ').split()
+    tabela: list = []
+
+    try:
+        palavra: str = input('Digite a palavra-chave usada no quadrado de Políbio: ')
+        palavra: list = [x.upper() for x in palavra if x.upper() in alfabeto and x.upper() != 'J']
+        for letra in ''.join(palavra) + ''.join(alfabeto):
+            if letra not in tabela:
+                tabela.append(letra)
+        chave: list = [x.upper() for x in input('Digite a chave utilizada na codificação: ') if x.upper() in alfabeto]
+        for letra in chave:
+            if len(chave) < len(mensagem):
+                chave.append(letra)
+            else:
+                break
+        tabela = wrap(''.join(tabela), 5)
+
+        for indice_letra, letra in enumerate(chave):
+            for indice_linha, linha in enumerate(tabela):
+                if letra in linha:
+                    chave[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+        for n in range(len(mensagem)):
+            mensagem[n] = str(int(mensagem[n]) - int(chave[n]))
+        mensagem = [tabela[int(x[0]) - 1][int(x[1]) - 1] for x in mensagem]
+        return ''.join(mensagem)
+    except ValueError:
+        return 'Chave inserida é inválida.'
