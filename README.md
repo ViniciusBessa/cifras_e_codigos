@@ -1,7 +1,7 @@
 # Criptografias
-> Um programa para codificar e decodificar algumas criptografias.
+> Um programa para codificar e decodificar mensagens.
 
-Este programa pode ser utilizado para codificar ou decodificar uma mensagem com uma das criptografias disponíveis.
+Este programa pode ser utilizado para codificar ou decodificar mensagens com uma das criptografias disponíveis.
 
 ## Como usar
 Há dois jeitos diferentes de utilizar o programa, um no terminal e outro com uma interface gráfica.
