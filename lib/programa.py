@@ -1,10 +1,11 @@
 from time import sleep
+from typing import List
 
-from .codificadores import *
-from .decodificadores import *
+from .codificadores import cod_cesar, cod_vigenere, cod_onetimepad, cod_morse, cod_tapcode, cod_autokey, cod_niilista
+from .decodificadores import decod_cesar, decod_vigenere, decod_onetimepad, decod_morse, decod_tapcode, decod_autokey, decod_niilista
 
 # Lista contendo o nome da criptografia e suas funções
-opcoes_cripto = [
+opcoes_cripto: List[list] = [
     ['Cifra de César', cod_cesar, decod_cesar],
     ['Cifra de Vigenère', cod_vigenere, decod_vigenere],
     ['One-time pad (Cifra de uso único)', cod_onetimepad, decod_onetimepad],
@@ -51,11 +52,12 @@ def codificar_ou_decodificar() -> int:
     except ValueError:
         print('\n' * 15)
         print('Opção inválida')
+    return 0
 
 
-def efetuar_opcao(escolha_cripto) -> None:
+def efetuar_opcao(escolha_cripto: int) -> None:
     """Função que verifica se o usuário escolheu uma opção válida, e se sim, ela é executada"""
-    escolha_operacao = 0
+    escolha_operacao: int = 0
 
     if 0 <= escolha_cripto < len(opcoes_cripto):
         while escolha_operacao != 1 and escolha_operacao != 2:

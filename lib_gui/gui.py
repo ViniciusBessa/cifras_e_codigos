@@ -1,8 +1,8 @@
 from tkinter import Tk, Frame, Button, Label, Entry, messagebox, StringVar, BOTH
 from tkinter.ttk import Combobox
 
-from .codificadores import *
-from .decodificadores import *
+from .codificadores import cod_cesar, cod_vigenere, cod_onetimepad, cod_morse, cod_tapcode, cod_autokey, cod_niilista
+from .decodificadores import decod_cesar, decod_vigenere, decod_onetimepad, decod_morse, decod_tapcode, decod_autokey, decod_niilista
 
 
 def gui() -> None:
