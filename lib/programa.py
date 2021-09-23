@@ -23,12 +23,11 @@ def programa() -> None:
 
     for opcao, valores in enumerate(opcoes_cripto):
         print(str(opcao + 1) + ' - ' + valores[0])
-    print(str(len(opcoes_cripto) + 1) + ' - Sair do programa')
-    print()
+    print(str(len(opcoes_cripto) + 1) + ' - Sair do programa\n')
 
     try:
         opcao_escolhida: int = int(input('Digite umas da opções: '))
-        efetuar_opcao(opcao_escolhida - 1)
+        print(efetuar_opcao(opcao_escolhida - 1))
 
     except ValueError:
         print('Opção inválida.')
@@ -62,11 +61,11 @@ def efetuar_opcao(escolha_cripto: int) -> None:
     if 0 <= escolha_cripto < len(opcoes_cripto):
         while escolha_operacao != 1 and escolha_operacao != 2:
             escolha_operacao = codificar_ou_decodificar()
-        print(opcoes_cripto[escolha_cripto][escolha_operacao]())
+        return opcoes_cripto[escolha_cripto][escolha_operacao]()
 
     elif escolha_cripto == len(opcoes_cripto):
         print('Programa finalizado.')
         exit()
 
     else:
-        print('Opção inválida.')
+        return 'Opção inválida.'
