@@ -27,15 +27,21 @@ def programa() -> None:
 
     try:
         opcao_escolhida: int = int(input('Digite umas da opções: '))
-        print(efetuar_opcao(opcao_escolhida - 1))
 
-    except ValueError:
+        if opcao_escolhida == len(opcoes_cripto):
+            print('Programa finalizado')
+            exit()
+        
+        else:
+            print(f'\nResultado: {efetuar_opcao(opcoes_cripto[opcao_escolhida - 1])}')
+
+    except (ValueError, IndexError):
         print('Opção inválida.')
     sleep(3)
     programa()
 
 
-def codificar_ou_decodificar() -> int:
+def receber_operacao() -> int:
     """Função para saber se o usuário deseja codificar ou decodificar"""
     print('Codificar ou decodificar\n')
     print('1 - Codificar\n2 - Decodificar')
@@ -45,8 +51,9 @@ def codificar_ou_decodificar() -> int:
         print('\n' * 15)
         if escolha == 1 or escolha == 2:
             return escolha
+
         else:
-            print('Opção inválida')
+            raise ValueError
 
     except ValueError:
         print('\n' * 15)
@@ -54,18 +61,44 @@ def codificar_ou_decodificar() -> int:
     return 0
 
 
-def efetuar_opcao(escolha_cripto: int) -> None:
+def receber_dados(criptografia: int, operacao: int) -> list:
+    indice_cripto = opcoes_cripto.index(criptografia)
+    lista_dados = []
+
+    if operacao == 1:
+        nome_operacao = 'Decodificador'
+    else:
+        nome_operacao = 'Codificador'
+
+    print(f'{nome_operacao} de {criptografia[0].lower()}' )
+
+    mensagem: str = input('Digite a mensagem: ')
+    lista_dados.append(mensagem)
+
+    if indice_cripto != 3 and indice_cripto != 4:
+        chave: str = input('Digite a chave: ')
+        lista_dados.append(chave)
+
+    elif indice_cripto == 4:
+        print('\nEscolha uma das opções\n')
+        print('1 - Mensagem em pontos')
+        print('2 - Mensagem em pares de números')
+        tipo_cod = int(input('Digite uma das opções: '))
+        lista_dados.append(tipo_cod)
+
+    elif indice_cripto == 6:
+        palavra_chave = input('Digite a palavra-chave: ')
+        lista_dados.append(palavra_chave)
+
+    return lista_dados
+
+
+def efetuar_opcao(escolha_cripto: list) -> str:
     """Função que verifica se o usuário escolheu uma opção válida, e se sim, ela é executada"""
     escolha_operacao: int = 0
 
-    if 0 <= escolha_cripto < len(opcoes_cripto):
-        while escolha_operacao != 1 and escolha_operacao != 2:
-            escolha_operacao = codificar_ou_decodificar()
-        return opcoes_cripto[escolha_cripto][escolha_operacao]()
+    while escolha_operacao == 0:
+        escolha_operacao = receber_operacao()
+    dados = receber_dados(escolha_cripto, escolha_operacao)
 
-    elif escolha_cripto == len(opcoes_cripto):
-        print('Programa finalizado.')
-        exit()
-
-    else:
-        return 'Opção inválida.'
+    return escolha_cripto[escolha_operacao](*dados)
