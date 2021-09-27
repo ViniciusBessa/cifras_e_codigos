@@ -53,9 +53,10 @@ def cod_tapcode(mensagem: str, tipo_saida: int) -> str:
                     ['L', 'M', 'N', 'O', 'P'],
                     ['Q', 'R', 'S', 'T', 'U'],
                     ['V', 'W', 'X', 'Y', 'Z']]
+    tipo_saida = tipo_saida - 1
 
     if tipo_saida == 0 or tipo_saida == 1:
-        mensagem: list = [x.upper() for x in mensagem if x.upper() in ascii_uppercase]
+        mensagem: list = [x.upper() for x in mensagem if x.upper() in alfabeto]
         for indice_msg, letra in enumerate(mensagem):
             for indice_lin, linha in enumerate(tabela):
                 if letra in linha:

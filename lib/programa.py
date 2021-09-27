@@ -30,7 +30,7 @@ def programa() -> None:
     try:
         opcao_escolhida: int = int(input('Digite umas da opções: '))
 
-        if opcao_escolhida == len(opcoes_cripto):
+        if opcao_escolhida > len(opcoes_cripto):
             print('Programa finalizado')
             exit()
         
@@ -76,17 +76,19 @@ def receber_dados(criptografia: list, operacao: int) -> list:
     if indice_cripto != 3 and indice_cripto != 4:
         chave: str = input('Digite a chave: ')
         lista_dados.append(chave)
+    
+    if indice_cripto == 6:
+        palavra_chave: str = input('Digite a palavra-chave: ')
+        lista_dados.append(palavra_chave)
 
     elif indice_cripto == 4:
         print('\nEscolha uma das opções\n')
-        print('1 - Mensagem em pontos')
-        print('2 - Mensagem em pares de números')
+        print('1 - Mensagem em pares de números')
+        print('2 - Mensagem em pontos')
         tipo_cod: int = int(input('Digite uma das opções: '))
         lista_dados.append(tipo_cod)
 
-    elif indice_cripto == 6:
-        palavra_chave: str = input('Digite a palavra-chave: ')
-        lista_dados.append(palavra_chave)
+    
 
     return lista_dados
 

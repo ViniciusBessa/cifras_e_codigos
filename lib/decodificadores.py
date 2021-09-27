@@ -53,6 +53,7 @@ def decod_tapcode(codigo: str, tipo_entrada: int) -> str:
                     ['L', 'M', 'N', 'O', 'P'],
                     ['Q', 'R', 'S', 'T', 'U'],
                     ['V', 'W', 'X', 'Y', 'Z']]
+    tipo_entrada = tipo_entrada - 1
 
     if tipo_entrada == 0:
         codigo: list = codigo.split()
