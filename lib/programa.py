@@ -1,5 +1,5 @@
 from time import sleep
-from typing import List
+from typing import Dict, List
 
 from .codificadores import cod_cesar, cod_vigenere, cod_onetimepad, cod_morse, cod_tapcode, cod_autokey, cod_niilista
 from .decodificadores import decod_cesar, decod_vigenere, decod_onetimepad, decod_morse, decod_tapcode, decod_autokey, decod_niilista
@@ -14,6 +14,8 @@ opcoes_cripto: List[list] = [
     ['Autokey cipher (Cifra de autochave)', cod_autokey, decod_autokey],
     ['Cifra niilista', cod_niilista, decod_niilista]
 ]
+
+opcoes_operacoes: Dict[int, str] = {1: 'Codificador', 2: 'Decodificador'}
 
 
 def programa() -> None:
@@ -61,14 +63,10 @@ def receber_operacao() -> int:
     return 0
 
 
-def receber_dados(criptografia: int, operacao: int) -> list:
-    indice_cripto = opcoes_cripto.index(criptografia)
-    lista_dados = []
-
-    if operacao == 1:
-        nome_operacao = 'Decodificador'
-    else:
-        nome_operacao = 'Codificador'
+def receber_dados(criptografia: list, operacao: int) -> list:
+    indice_cripto: int = opcoes_cripto.index(criptografia)
+    lista_dados: list = []
+    nome_operacao: str = opcoes_operacoes[operacao]
 
     print(f'{nome_operacao} de {criptografia[0].lower()}' )
 
@@ -83,11 +81,11 @@ def receber_dados(criptografia: int, operacao: int) -> list:
         print('\nEscolha uma das opções\n')
         print('1 - Mensagem em pontos')
         print('2 - Mensagem em pares de números')
-        tipo_cod = int(input('Digite uma das opções: '))
+        tipo_cod: int = int(input('Digite uma das opções: '))
         lista_dados.append(tipo_cod)
 
     elif indice_cripto == 6:
-        palavra_chave = input('Digite a palavra-chave: ')
+        palavra_chave: str = input('Digite a palavra-chave: ')
         lista_dados.append(palavra_chave)
 
     return lista_dados
@@ -99,6 +97,6 @@ def efetuar_opcao(escolha_cripto: list) -> str:
 
     while escolha_operacao == 0:
         escolha_operacao = receber_operacao()
-    dados = receber_dados(escolha_cripto, escolha_operacao)
+    dados: list = receber_dados(escolha_cripto, escolha_operacao)
 
     return escolha_cripto[escolha_operacao](*dados)
