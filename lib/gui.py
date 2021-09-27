@@ -30,7 +30,7 @@ def gui() -> None:
                 elif cbx_cript.current() == 1:
                     res.set(cifra(ent_msg.get()))
                 elif cbx_cript.current() == 3:
-                    res.set(cifra(ent_msg.get(), cbx_esc.current()))
+                    res.set(cifra(ent_msg.get(), cbx_esc.current() + 1))
                 elif cbx_cript.current() == 6:
                     res.set(cifra(ent_msg.get(), ent_pala.get(), ent_cha.get()))
             except ValueError:
