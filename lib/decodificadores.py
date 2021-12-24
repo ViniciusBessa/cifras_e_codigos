@@ -9,8 +9,8 @@ def decod_cesar(mensagem: str, chave: int) -> str:
     mensagem: list = [x.upper() for x in mensagem]
     novo_alfabeto: list = alfabeto[int(chave)::]
     novo_alfabeto.extend(alfabeto[0:int(chave):])
-    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
-    mensagem: list = [alfabeto[novo_alfabeto.index(x)] for x in mensagem if x in alfabeto]
+    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if not x.isalpha()]
+    mensagem: list = [alfabeto[novo_alfabeto.index(x)] for x in mensagem if x.isalpha()]
     for carac in carac_esp:
         mensagem.insert(carac[0], carac[1])
     return ''.join(mensagem)
@@ -23,7 +23,6 @@ def decod_morse(codigo: str) -> str:
                          '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
     tabela_num: list = ['.----', '..---', '...--', '....-', '.....', '-....', '--...', '---..', '----.', '-----']
     codigo: list = codigo.split()
-
     for indice, seq in enumerate(codigo):
         if len(seq) > 5:
             return 'O código não foi digitado corretamente'
@@ -36,8 +35,8 @@ def decod_morse(codigo: str) -> str:
 
 def decod_onetimepad(mensagem: str, chave: str) -> str:
     """Função para decodificar de one-time pad"""
-    mensagem: list = [x.upper() for x in mensagem if x.upper() in alfabeto]
-    chave: list = [x.upper() for x in chave if x.upper() in alfabeto]
+    mensagem: list = [x.upper() for x in mensagem if x.isalpha()]
+    chave: list = [x.upper() for x in chave if x.isalpha()]
 
     if len(chave) < len(mensagem):
         return 'A chave precisa ter no mínimo o mesmo número de letras que a mensagem.'
@@ -72,12 +71,12 @@ def decod_vigenere(mensagem: str, chave: str) -> str:
     chave: list = [x.upper() for x in chave]
 
     for letra in chave:
-        if len(chave) < len([x for x in mensagem if x in alfabeto]):
+        if len(chave) < len([x for x in mensagem if x.isalpha()]):
             chave.append(letra)
         else:
             break
-    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
-    mensagem: list = [x for x in mensagem if x in alfabeto]
+    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if not x.isalpha()]
+    mensagem: list = [x for x in mensagem if x.isalpha()]
     for indice, letra in enumerate(mensagem):
         novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
         novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
@@ -91,8 +90,8 @@ def decod_autokey(mensagem: str, chave: str):
     """Função para decodificar de autokey cipher"""
     mensagem: list = [x.upper() for x in mensagem]
     chave: list = [x.upper() for x in chave]
-    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if x not in alfabeto]
-    mensagem: list = [x for x in mensagem if x in alfabeto]
+    carac_esp: list = [[indice, x] for indice, x in enumerate(mensagem) if not x.isalpha()]
+    mensagem: list = [x for x in mensagem if x.isalpha()]
     for indice, letra in enumerate(mensagem):
         novo_alfabeto: list = alfabeto[alfabeto.index(chave[indice])::]
         novo_alfabeto.extend(alfabeto[0:alfabeto.index(chave[indice]):])
@@ -108,12 +107,12 @@ def decod_niilista(mensagem: str, chave: str, palavra: str):
     alfabeto = [letra for letra in ascii_uppercase if letra != 'J']
     mensagem: list = mensagem.split()
     tabela: list = []
-    
-    palavra: list = [x.upper() for x in palavra if x.upper() in alfabeto and x.upper() != 'J']
+    palavra: list = [x.upper() for x in palavra if x.isalpha() and x.upper() != 'J']
     for letra in ''.join(palavra) + ''.join(alfabeto):
         if letra not in tabela:
             tabela.append(letra)
-    chave: list = [x.upper() for x in chave if x.upper() in alfabeto]
+    chave: list = [x.upper() for x in chave if x.isalpha()]
+
     for letra in chave:
         if len(chave) < len(mensagem):
             chave.append(letra)
@@ -125,6 +124,7 @@ def decod_niilista(mensagem: str, chave: str, palavra: str):
         for indice_linha, linha in enumerate(tabela):
             if letra in linha:
                 chave[indice_letra] = str(indice_linha + 1) + str(linha.index(letra) + 1)
+
     for n in range(len(mensagem)):
         mensagem[n] = str(int(mensagem[n]) - int(chave[n]))
     mensagem = [tabela[int(x[0]) - 1][int(x[1]) - 1] for x in mensagem]
