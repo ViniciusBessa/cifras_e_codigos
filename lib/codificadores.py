@@ -18,16 +18,25 @@ def cod_cesar(mensagem: str, chave: int) -> str:
 
 def cod_morse(mensagem: str) -> str:
     """Função para codificar em código morse"""
-    numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
-                         '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
-    tabela_num: list = ['.----', '..---', '...--', '....-', '.....', '-....', '--...', '---..', '----.', '-----']
-    mensagem: list = [x.upper() for x in mensagem if x != ' ']
-    for indice, carac in enumerate(mensagem):
-        if carac in alfabeto:
-            mensagem[indice] = tabela_alfa[alfabeto.index(carac)]
-        elif carac in numeros:
-            mensagem[indice] = tabela_num[numeros.index(carac)]
+    tabela_alfa: dict = {
+        'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+        'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 
+        'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 
+        'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 
+        'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+        'Z': '--..'
+    }
+    tabela_num: dict = {
+        '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', 
+        '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
+    }
+    mensagem: list = [caractere.upper() for caractere in mensagem if caractere != ' ']
+    for indice, seq in enumerate(mensagem):
+        if seq in tabela_alfa:
+            mensagem[indice] = tabela_alfa.get(seq)
+
+        elif seq in tabela_num:
+            mensagem[indice] = tabela_num.get(seq)
     return ' '.join(mensagem)
 
 

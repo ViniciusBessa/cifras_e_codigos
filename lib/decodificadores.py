@@ -18,18 +18,30 @@ def decod_cesar(mensagem: str, chave: int) -> str:
 
 def decod_morse(codigo: str) -> str:
     """Função para decodificar de código morse"""
-    numeros: list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    tabela_alfa: list = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--',
-                         '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
-    tabela_num: list = ['.----', '..---', '...--', '....-', '.....', '-....', '--...', '---..', '----.', '-----']
+    tabela_alfa: dict = {
+        '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E', 
+        '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J', 
+        '-.-': 'K', '.-..': 'L', '--': 'M', '-.': 'N', '---': 'O', 
+        '.--.': 'P', '--.-': 'Q', '.-.': 'R', '...': 'S', '-': 'T', 
+        '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y',
+        '--..': 'Z' 
+    }
+
+    tabela_num: dict = {
+        1: '.----', 2: '..---', 3: '...--', 4: '....-', 5: '.....', 
+        6: '-....', 7: '--...', 8: '---..', 9: '----.', 0: '-----'
+    }
+
     codigo: list = codigo.split()
     for indice, seq in enumerate(codigo):
         if len(seq) > 5:
             return 'O código não foi digitado corretamente'
+
         if seq in tabela_alfa:
-            codigo[indice] = alfabeto[tabela_alfa.index(seq)]
+            codigo[indice] = tabela_alfa.get(seq)
+        
         elif seq in tabela_num:
-            codigo[indice] = numeros[tabela_num.index(seq)]
+            codigo[indice] = tabela_num.get(seq)
     return ''.join(codigo)
 
 
